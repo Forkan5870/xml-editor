@@ -1,37 +1,54 @@
 import docx
 
-def CreateDocx(array)
-    # create an instance of a word document
+
+def CreateDocx(array):
+    
     doc = docx.Document()
 
+    for i in range(len(array)):
+        nombre_para = doc.add_paragraph()
+        info_para = doc.add_paragraph()
+        extra_para = doc.add_paragraph()
+        ensayo1_para = doc.add_paragraph()
+        ensayo2_para = doc.add_paragraph()
+        comentarios_para = doc.add_paragraph()
 
-    # add a heading of level 0 (largest heading)
-    doc.add_heading('Heading for the document', 0) # HAPPENS
+        run = nombre_para.add_run(array[i]["nombre"])
+        run.font.name = 'Verdana'
+        run.bold = True
+        run.font.size = docx.shared.Pt(25)
 
-    # Add a paragraph with "Hello, World" in Verdana font and "World" bolded
-    paragraph1 = doc.add_paragraph()
-    run1 = paragraph1.add_run('Hello, ')
-    run1.font.name = 'Verdana'
-    run1 = paragraph1.add_run('World')
-    run1.font.name = 'Verdana'
-    run1.bold = True
+        info_para.style.font.name = 'Assistant'
+        info_para.add_run("Instituto: ").bold = True
+        info_para.add_run(f"{array[i]['instituto']}, ")
+        info_para.add_run("Provincia: ").bold = True
+        info_para.add_run(f"{array[i]['provincia']}, ")
+        info_para.add_run("ESO: ").bold = True
+        info_para.add_run(f"{array[i]['eso']}, ")
+        info_para.add_run("Bachillerato: ").bold = True
+        info_para.add_run(f"{array[i]['bachillerato']}, ")
+        info_para.add_run("Inglés: ").bold = True
+        info_para.add_run(f"{array[i]['ingles']}, ")
+        info_para.add_run("Grado: ").bold = True
+        info_para.add_run(array[i]['grado'])
 
-    # Add a paragraph with "whats up" in Assistant font and "up" bolded
-    paragraph2 = doc.add_paragraph()
-    run2 = paragraph2.add_run('whats ')
-    run2.font.name = 'Assistant'
-    run2 = paragraph2.add_run('up')
-    run2.font.name = 'Assistant'
-    run2.bold = True
+        extra_para.style.font.name = 'Assistant'
+        extra_para.add_run("Extraescolares: ").bold = True
+        extra_para.add_run(array[i]['extraescolares'])
 
-    run1 = paragraph2.add_run('Im back in verdana')
-    run1.font.name = 'Verdana'
+        ensayo1_para.style.font.name = 'Assistant'
+        ensayo1_para.add_run("Ensayo 1: ").bold = True
+        ensayo1_para.add_run(array[i]['ensayo1'])
 
+        ensayo2_para.style.font.name = 'Assistant'
+        ensayo2_para.add_run("Ensayo 2: ").bold = True
+        ensayo2_para.add_run(array[i]['ensayo2'])
 
-    
-    # add a page break to start a new page 
-    doc.add_page_break() 
+        comentarios_para.style.font.name = 'Assistant'
+        comentarios_para.add_run("Comentarios: ").bold = True
+        comentarios_para.add_run(array[i]['comentarios'])
 
-    
-    # now save the document to a location 
+        if (not(i == len(array) - 1)):
+            doc.add_page_break() 
+
     doc.save('files/test.docx') 
